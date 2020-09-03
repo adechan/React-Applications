@@ -65,7 +65,7 @@ function App() {
 
      <ul> 
        {todos.map(todo => (
-         <Todo todo={todo.todo}/>
+         <Todo todo={todo}/>
         ))}
      </ul>
     </div>
