@@ -59,13 +59,12 @@ function Todo(props) {
             </Modal>
 
             <List className="todo__list">
-                <ListItem>
-                    <ListItemAvatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={props.todo.todo} secondary="Dummy deadline"/>
+                <ListItem className="center"> 
+                    <ListItemText primary={props.todo.todo}/>
+
+                    <Button onClick={e => setOpen(true)}>Edit</Button>
+                    <DeleteIcon className="icon" onClick={deleteTodo} />
                 </ListItem>
-                <Button onClick={e => setOpen(true)}>Edit</Button>
-                <DeleteIcon className="icon" onClick={deleteTodo} />
             </List>
         </>
     )

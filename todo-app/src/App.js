@@ -63,11 +63,11 @@ function App() {
         </Button>
      </form>
 
-     <ul> 
+     <div className="todos__list"> 
        {todos.map(todo => (
          <Todo todo={todo}/>
         ))}
-     </ul>
+     </div>
     </div>
   );
 }
