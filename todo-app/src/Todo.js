@@ -10,6 +10,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const useStyles = makeStyles((theme) => ({
     paper: {
         position: "absolute",
+        top: "30%",
+        left: "35%",
         width: 400,
         backgroundColor: theme.palette.background.paper,
         border: "2px solid #000",
@@ -52,9 +54,9 @@ function Todo(props) {
                 onClose={e => setOpen(false)}
             >
                 <div className={classes.paper}>
-                    <h1>open</h1>
+                    <h1>Edit Todo</h1>
                     <input placeholder={props.todo.todo} value={input} onChange={event => setInput(event.target.value)}/>
-                    <Button onClick={updateTodo}>Update Todo</Button>
+                    <Button onClick={updateTodo}>Update</Button>
                 </div>
             </Modal>
 
