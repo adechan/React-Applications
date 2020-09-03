@@ -1,6 +1,7 @@
 # Todo - basic application
 
 I created this Todo application following Cleaver Programmer's Tutorial using React and Firebase.
+</br>
 It has a basic functionality and design, just enough so you can create new todos, delete, and update the old ones. 
 
 
