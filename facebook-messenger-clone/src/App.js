@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import './App.css';
+import Message from './Message';
 
 function App() {
   const [input, setInput] = useState(""); // example of react hook
   const [messages, setMessages] = useState([]);
-
-  console.log(input);
-  console.log(messages);
+  const [username, setUsername] = useState("");
 
   // its gonna be fired from the button (so we expect it to have an event)
   // ES6
@@ -28,14 +28,19 @@ function App() {
       and add 'type=submit' so we can use Enter button 
       */}
       <form> 
-        <input value={input} onChange={event => setInput(event.target.value)}/>
-        <button type='submit' onClick={sendMessage}>Send Message</button>
+        <FormControl>
+          <InputLabel>Enter a message...</InputLabel>
+          <Input value={input} onChange={event => setInput(event.target.value)}/>
+          
+          <Button disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>Send Message</Button>
+        </FormControl>
       </form>
 
       {
         // loop through the array messages and display each of them
         messages.map(message => ( 
-          <p>{message}</p> // returns HTML elements
+          <Message text={message} />
+        
         ))
       }
     </div>
