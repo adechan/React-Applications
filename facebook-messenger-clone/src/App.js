@@ -3,6 +3,11 @@ import { Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import './App.css';
 import Message from './Message';
 import db from './firebase';
+import firebase from 'firebase';
+import FlipMove from 'react-flip-move';
+import logo from './images/messenger.png';
+import SendIcon from '@material-ui/icons/Send';
+import { IconButton } from '@material-ui/core';
 
 function App() {
   const [input, setInput] = useState(""); // example of react hook
@@ -16,9 +21,11 @@ function App() {
     // runs once when the app component loads 
     // "onSnapshot": every time the db changes, this code will run
     // snapshot stores all the documents from collection
-    db.collection('messages').onSnapshot(snapshot => {
-      setMessages(snapshot.docs.map(doc => doc.data()))
-    })
+    db.collection('messages')
+    .orderBy('timestamp', 'desc')
+    .onSnapshot(snapshot => {
+      setMessages(snapshot.docs.map(doc => ( { id: doc.id, message: doc.data() }) ))
+    });
 
   }, [input])
 
@@ -35,36 +42,50 @@ function App() {
     event.preventDefault();
     // all the logic to send a message goes here
 
+    db.collection('messages').add({
+      message: input,
+      username: username,
+      timestamp:  firebase.firestore.FieldValue.serverTimestamp()   // server timezone
+    });
+
     // keep all the old messages and append "input" to the end of array
-    setMessages([...messages, { username: username, text: input }]); 
+    // setMessages([...messages, { username: username, message: input }]); 
+
     setInput('');  // set input blank after you sent a message
   }
 
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <h2>Welcome {username}</h2>
+      <img className="logo" src={logo} />
+      <p className="app__title">Messenger App</p>
+      <p className="app__welcome">Welcome {username}</p>
       
       {/* 
       wrap it inside a form 
       and add 'type=submit' so we can use Enter button 
       */}
-      <form> 
-        <FormControl>
-          <InputLabel>Enter a message...</InputLabel>
-          <Input value={input} onChange={event => setInput(event.target.value)}/>
-          
-          <Button disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>Send Message</Button>
+      <form className="app__form"> 
+        <FormControl className="app__formControl">
+          <Input className="app__input" placeholder="Type a message and press Enter..." value={input} onChange={event => setInput(event.target.value)}/>
+
+          <IconButton className="app__iconButton" disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
+            <SendIcon />
+          </IconButton>
+
         </FormControl>
       </form>
 
-      {
-        // loop through the array messages and display each of them
-        messages.map(message => ( 
-          <Message username={username} message={message} />
-        
-        ))
-      }
+      <FlipMove>
+        {
+          // loop through the array messages and display each of them
+          messages.map(({id, message}) => ( 
+            // add the "key" so it only re-renders the top one, and it pushes the list down
+            <Message key={id} username={username} message={message} />
+          ))
+        }
+      </FlipMove>
+
+
     </div>
   );
 }
