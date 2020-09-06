@@ -41,6 +41,15 @@
   margin-right: 30px;
 }
 
+.app__flipmove {
+  margin-bottom: 130px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
 .app__formControl { 
   display: flex !important;
   flex-direction: row !important;

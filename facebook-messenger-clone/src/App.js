@@ -75,7 +75,7 @@ function App() {
         </FormControl>
       </form>
 
-      <FlipMove>
+      <FlipMove className="app__flipmove">
         {
           // loop through the array messages and display each of them
           messages.map(({id, message}) => ( 
