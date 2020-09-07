@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import instagramText from './images/instagram.png';
 import './App.css';
 import Post from './Post';
-import { db } from "./firebase";
+import { db, auth } from "./firebase";
 import Modal from '@material-ui/core/Modal';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Button, Input } from '@material-ui/core';
 
 function getModalStyle() {
   const top = 50;
@@ -35,7 +35,35 @@ function App() {
 
 
   const [posts, setPosts] = useState([]);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
+
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // listens for any single time when any 
+    // authentification change happens
+    // PERSISTENT on refresh: onAuthStateChanged
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // user has logged in...
+        console.log(authUser);
+        setUser(authUser);  // persistent on refresh!!
+      }
+      else {
+        // user has logged out...
+        setUser(null);
+      }
+    })
+
+    return () => {
+      // perform some cleanup actions
+      unsubscribe();
+    }
+
+  }, [user, username]); // any time user or username changes, it refires the code
 
 
   useEffect(() => {
@@ -50,18 +78,69 @@ function App() {
 
   }, [])  // runs when the app component loads
 
-  const signUp = () => {
+  const signUpModal = () => {
     setOpen(true);
+  }
+
+  const signUp = (event) => {
+
+    // so it doesnt refresh the page
+    event.preventDefault();
+
+    auth
+    .createUserWithEmailAndPassword(email, password)
+    .then((authUser) => {
+      // return it because it is from a promise
+      return authUser.user.updateProfile({
+        displayName: username
+      })
+    })
+    .catch((error) => alert(error.message));
+
+
   }
 
   return (
     <div className="app">
+
        <Modal
         open={open}
         onClose={() => setOpen(false)}
         >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Text in a modal</h2>
+          <form className="app__signup">
+            <center>
+              <img 
+                className="app__headerImage"
+                src={instagramText}
+                alt=""
+              />
+            </center>
+
+            <Input 
+              placeholder="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <Input 
+              placeholder="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <Input 
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button type="submit" onClick={signUp}>Sign Up</Button>
+          </form>
+        
         </div>
       </Modal>
 
@@ -73,7 +152,7 @@ function App() {
         />
       </div>
 
-      <Button onClick={signUp}>Sign up</Button>
+      <Button onClick={signUpModal}>Sign up</Button>
 
       {
         posts.map(({id, post}) => (
