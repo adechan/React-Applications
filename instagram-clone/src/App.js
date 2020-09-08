@@ -42,7 +42,7 @@ function App() {
 
   const [user, setUser] = useState(null);
 
-  const [open, setOpen] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function App() {
   }, [])  // runs when the app component loads
 
   const signUpModal = () => {
-    setOpen(true);
+    setOpenSignUp(true);
   }
 
   const signInModal = () => {
@@ -104,7 +104,7 @@ function App() {
     })
     .catch((error) => alert(error.message));
 
-    setOpen(false);
+    setOpenSignUp(false);
   }
 
   const SignIn = (event) => {
@@ -121,8 +121,8 @@ function App() {
     <div className="app">
 
        <Modal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openSignUp}
+        onClose={() => setOpenSignUp(false)}
         >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
