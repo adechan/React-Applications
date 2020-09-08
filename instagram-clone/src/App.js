@@ -35,12 +35,15 @@ function App() {
 
 
   const [posts, setPosts] = useState([]);
+
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const [user, setUser] = useState(null);
 
   const [open, setOpen] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
 
   useEffect(() => {
     // listens for any single time when any 
@@ -82,6 +85,10 @@ function App() {
     setOpen(true);
   }
 
+  const signInModal = () => {
+    setOpenSignIn(true);
+  }
+
   const signUp = (event) => {
 
     // so it doesnt refresh the page
@@ -97,7 +104,17 @@ function App() {
     })
     .catch((error) => alert(error.message));
 
+    setOpen(false);
+  }
 
+  const SignIn = (event) => {
+    event.preventDefault();
+
+    auth
+    .signInWithEmailAndPassword(email, password)
+    .catch((error) => alert(error.message));
+
+    setOpenSignIn(false);
   }
 
   return (
@@ -144,6 +161,40 @@ function App() {
         </div>
       </Modal>
 
+      <Modal
+        open={openSignIn}
+        onClose={() => setOpenSignIn(false)}
+        >
+        <div style={modalStyle} className={classes.paper}>
+          <form className="app__signup">
+            <center>
+              <img 
+                className="app__headerImage"
+                src={instagramText}
+                alt=""
+              />
+            </center>
+
+            <Input 
+              placeholder="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <Input 
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button type="submit" onClick={SignIn}>Sign Up</Button>
+          </form>
+        
+        </div>
+      </Modal>
+
       <div className="app__header">
         <img 
           className="app__headerImage"
@@ -152,7 +203,18 @@ function App() {
         />
       </div>
 
-      <Button onClick={signUpModal}>Sign up</Button>
+      {user ? 
+      (  // we have user -> Logout
+         <Button onClick={() => auth.signOut()}>Logout</Button>
+      ): // we dont have user -> Sign up
+      (
+        <div className="app__loginContainer">
+          <Button onClick={signInModal}>Sign in</Button>
+
+          <Button onClick={signUpModal}>Sign up</Button>
+        </div>
+      )}
+      
 
       {
         posts.map(({id, post}) => (
