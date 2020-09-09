@@ -4,7 +4,9 @@ import './App.css';
 import Post from './Post';
 import { db, auth } from "./firebase";
 import Modal from '@material-ui/core/Modal';
-import { makeStyles, Button, Input } from '@material-ui/core';
+import { makeStyles, Button, Input, withStyles } from '@material-ui/core';
+import ImageUpload from './ImageUpload';
+import InstagramEmbed from 'react-instagram-embed';
 
 function getModalStyle() {
   const top = 50;
@@ -72,7 +74,7 @@ function App() {
   useEffect(() => {
     
     // every time a post is added,this code will fire
-    db.collection("posts").onSnapshot(snapshot =>  {
+    db.collection("posts").orderBy("timestamp", 'desc').onSnapshot(snapshot =>  {
       setPosts(snapshot.docs.map(doc => ({
         id: doc.id,
         post: doc.data()
@@ -117,10 +119,63 @@ function App() {
     setOpenSignIn(false);
   }
 
+  const SignInButton = withStyles({
+    root: {
+      backgroundColor: '#0089f7',
+      "&:hover":{
+        backgroundColor: '#0089f7'
+      },
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 35,
+      padding: '0 30px',
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
+
+  const SignUpButton = withStyles({
+    root: {
+      backgroundColor: 'white',
+      "&:hover":{
+        backgroundColor: 'white'
+      },
+      borderRadius: 3,
+      border: 0,
+      color: '#0089f7',
+      height: 35,
+      padding: '0 30px',
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
+
+  const StyledButton = withStyles({
+    root: {
+      backgroundColor: '#0089f7',
+      "&:hover":{
+        backgroundColor: '#0089f7'
+      },
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 35,
+      padding: '0 30px',
+      marginTop: '20px',
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
+
   return (
     <div className="app">
 
-       <Modal
+      {/* Sign Up */}
+      <Modal
         open={openSignUp}
         onClose={() => setOpenSignUp(false)}
         >
@@ -155,12 +210,13 @@ function App() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button type="submit" onClick={signUp}>Sign Up</Button>
+            <StyledButton type="submit" onClick={signUp}>Sign Up</StyledButton>
           </form>
         
         </div>
       </Modal>
 
+      {/* Sign In */}
       <Modal
         open={openSignIn}
         onClose={() => setOpenSignIn(false)}
@@ -189,7 +245,7 @@ function App() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button type="submit" onClick={SignIn}>Sign Up</Button>
+            <StyledButton type="submit" onClick={SignIn}>Sign Up</StyledButton>
           </form>
         
         </div>
@@ -201,27 +257,54 @@ function App() {
           src={instagramText}
           alt=""
         />
+
+        {/* Conditional rendering based if we logged in or not */}
+        {user ? 
+          (  // we have user -> Logout
+            <SignUpButton onClick={() => auth.signOut()}>Log Out</SignUpButton>
+          ): // we dont have user -> Sign up
+          (
+            <div className="app__loginContainer">
+              <SignInButton onClick={signInModal}>Sign in</SignInButton>
+
+              <SignUpButton onClick={signUpModal}>Sign up</SignUpButton>
+            </div>
+          )}
       </div>
 
-      {user ? 
-      (  // we have user -> Logout
-         <Button onClick={() => auth.signOut()}>Logout</Button>
-      ): // we dont have user -> Sign up
-      (
-        <div className="app__loginContainer">
-          <Button onClick={signInModal}>Sign in</Button>
-
-          <Button onClick={signUpModal}>Sign up</Button>
+      <div className="app_posts">
+        <div className="app__postsLeft">
+          {
+            posts.map(({id, post}) => (
+              //  because we added key, it will only re-render the last post
+              <Post key={id} postId={id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+            ))
+          }  
         </div>
+      
+        <div className="app__postsRight">
+          <InstagramEmbed
+            url='https://www.instagram.com/p/BiHhTUfnCeR/'
+            maxWidth={320}
+            hideCaption={false}
+            containerTagName='div'
+            protocol=''
+            injectScript
+            onLoading={() => {}}
+            onSuccess={() => {}}
+            onAfterRender={() => {}}
+            onFailure={() => {}}
+          />
+        </div>
+      </div>
+
+      {/* user? => optional */}
+      {user?.displayName ? (
+      <ImageUpload username={user.displayName}/>
+      ): (
+        <p className="app__imageUploadError"> Sorry, you need to login to upload! </p>
       )}
       
-
-      {
-        posts.map(({id, post}) => (
-          //  because we added key, it will only re-render the last post
-          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
-        ))
-      }  
 
     </div>
   );
