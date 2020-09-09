@@ -4,7 +4,8 @@ I created this Instagram clone application following Clever Programmer's [Tutori
 </br>
 It has user authentification, allowing you create accounts and login. Also once you are logged in, you can create posts and add messages to your or other people's posts.
 
-![instagram](https://user-images.githubusercontent.com/29714385/92585702-fa384380-f29d-11ea-8b79-7e972237321f.PNG)
+![instagram](https://user-images.githubusercontent.com/29714385/92585806-1b992f80-f29e-11ea-8de8-e70d476c0640.PNG)
+
 
 ## If you want to try to application:
 https://instagram-clone-dbf65.web.app/
