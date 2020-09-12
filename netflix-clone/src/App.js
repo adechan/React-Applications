@@ -2,12 +2,17 @@ import React from "react";
 import "./App.css";
 import Row from "./Row";
 import requests from "./requests";
+import Banner from "./Banner";
+import Navbar from "./Navbar";
+
+// install depedency: npm i react-youtube, npm i movie-trailer
 
 function App() {
   return (
     <div className="App">
-      {/* Navbar */}
-      {/* Banner */}
+      <Navbar />
+      <Banner />
+
       <Row
         title="NETFLIX ORIGINALS"
         fetchUrl={requests.fetchNetflixOriginals}
