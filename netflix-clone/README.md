@@ -10,5 +10,5 @@ Once you click on a poster it's gonna pop out a trailer for it.
 
 
 
-## If you want to try to application:
+## If you want to try the application:
 https://netflix-clone-8db03.web.app/
