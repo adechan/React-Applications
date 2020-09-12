@@ -1,0 +1,42 @@
+.row {
+  margin-left: 20px;
+}
+
+.row__posters {
+  display: flex;
+  flex-direction: row;
+
+  /* vertical axis hidden */
+  overflow-y: hidden;
+  overflow-x: scroll;
+  /* so we keep the nice look for transform */
+  padding: 20px;
+}
+
+/* keep the functionality but hide the scrollbar */
+.row__posters::-webkit-scrollbar {
+  display: none;
+}
+
+.row__poster {
+  width: 100%;
+  /* keep the aspect ratio of the pic */
+  object-fit: contain;
+
+  max-height: 100px;
+  margin-right: 10px;
+
+  transition: transform 450ms;
+}
+
+.row__poster:hover {
+  transform: scale(1.08);
+}
+
+.row__posterLarge {
+  max-height: 250px;
+}
+
+.row__posterLarge:hover {
+  transform: scale(1.09);
+}
