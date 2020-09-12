@@ -6,5 +6,5 @@ It has a basic functionality and design, allowing you to chat with anyone around
 
 ![messenger](https://user-images.githubusercontent.com/29714385/92306309-c2c45100-ef96-11ea-98da-5a50859cb3f5.PNG)
 
-## If you want to try to application:
+## If you want to try the application:
 https://facebook-messenger-clone-5e817.web.app/
