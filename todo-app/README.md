@@ -6,5 +6,5 @@ It has a basic functionality and design, just enough so you can create new todos
 
 ![todo](https://user-images.githubusercontent.com/29714385/92147224-7ad0ed00-ee23-11ea-96c9-7f71d03dc552.PNG)
 
-## If you want to try to application:
+## If you want to try the application:
 https://todo-app-react-adc47.web.app/
