@@ -4,14 +4,29 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import "./Header.css";
 import { useStateValue } from "./StateProvider";
+import { auth } from "./firebase";
 
 function Header() {
   // const [state, dispatch]
   // state: the current state of the current data layer
   // which means [{basket}, ]
   // dispatch: appending / removing but we dont need it in this component
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
   console.log(basket);
+
+  // logging out if we already have an user
+  const login = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
+
+  const getUsername = (user) => {
+    let index = user?.email.indexOf("@");
+    let username = user?.email.substr(0, index);
+
+    return username;
+  };
 
   return (
     <nav className="header">
@@ -29,10 +44,14 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link className="header__link" to="/login">
-          <div className="header__option">
-            <span className="header__optionLineOne">Hello Qazi</span>
-            <span className="header__optionLineTwo">Sign In</span>
+        <Link className="header__link" to={!user && "/login"}>
+          <div onClick={login} className="header__option">
+            <span className="header__optionLineOne">
+              Hello {getUsername(user)}
+            </span>
+            <span className="header__optionLineTwo">
+              {user ? "Sign Out" : "Sign In"}
+            </span>
           </div>
         </Link>
 
