@@ -3,8 +3,16 @@ import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import "./Header.css";
+import { useStateValue } from "./StateProvider";
 
 function Header() {
+  // const [state, dispatch]
+  // state: the current state of the current data layer
+  // which means [{basket}, ]
+  // dispatch: appending / removing but we dont need it in this component
+  const [{ basket }] = useStateValue();
+  console.log(basket);
+
   return (
     <nav className="header">
       <Link to="/">
@@ -45,7 +53,9 @@ function Header() {
         <Link className="header__link" to="/checkout">
           <div className="header__optionBasket">
             <ShoppingBasketIcon className="header__shoppingBasketIcon" />
-            <span className="header__optionLineTwo header__basketCount">0</span>
+            <span className="header__optionLineTwo header__basketCount">
+              {basket?.length}
+            </span>
           </div>
         </Link>
       </div>
