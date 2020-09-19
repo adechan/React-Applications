@@ -1,0 +1,41 @@
+.chat {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  height: 70px;
+  border-bottom: 1px solid #fafafa;
+}
+
+a {
+  text-decoration: none;
+
+  /* get rid of the usual blue color from link */
+  color: inherit;
+}
+
+.chat__details {
+  /* takes as much space as it can */
+  flex: 1;
+}
+
+.chat__name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.chat__message {
+  color: gray;
+  font-size: 13px;
+}
+
+.chat__image {
+  margin-right: 20px;
+}
+
+.chat__timestamp {
+  font-size: 15px;
+  color: lightgray;
+}

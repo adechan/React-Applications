@@ -1,0 +1,23 @@
+import { Avatar } from "@material-ui/core";
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Chat.css";
+
+function Chat({ name, message, profilePic, timestamp }) {
+  return (
+    <Link to={`/chat/${name}`}>
+      <div className="chat">
+        <Avatar className="chat__image" alt={name} src={profilePic} />
+
+        <div className="chat__details">
+          <p className="chat__name">{name}</p>
+          <p className="chat__message">{message}</p>
+        </div>
+
+        <p className="chat__timestamp">{timestamp}</p>
+      </div>
+    </Link>
+  );
+}
+
+export default Chat;
