@@ -8,7 +8,7 @@ It has user authentification, allowing you create accounts and login. Also once 
 * *Firebase* is a Backend-as-a-Service (Baas)
 * *conditional rendering*: render elements based on a condition
 * *user authentification* using Firebase
-* Firebase *storage*
+* Firebase *storage*: to upload pictures
 * *react-instagram-embed*
 
 
