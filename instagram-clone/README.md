@@ -9,6 +9,7 @@ It has user authentification, allowing you create accounts and login. Also once 
 * *conditional rendering*: render elements based on a condition
 * *user authentification* using Firebase
 * Firebase *storage*
+* *react-instagram-embed*
 
 
 ![instagram](https://user-images.githubusercontent.com/29714385/92585806-1b992f80-f29e-11ea-8de8-e70d476c0640.PNG)
