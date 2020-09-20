@@ -1,5 +1,5 @@
 I created numerous applications using React & Firebase. 
-* **React & Firebase**
+* **React & Firebase** applications
   * [Basic ToDo List](https://todo-app-react-adc47.web.app/)
   * [Facebook Messenger clone](https://facebook-messenger-clone-5e817.web.app/)
   * [Instagram clone](https://instagram-clone-dbf65.web.app/)
