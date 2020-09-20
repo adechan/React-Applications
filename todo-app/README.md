@@ -5,6 +5,8 @@ I created this Todo application following Clever Programmer's Tutorial using Rea
 It has a basic functionality and design, just enough so you can create new todos, delete, and update the old ones. 
 
 **New things I learned doing this:**
+* *state*: similar with a short term memory (preserves the state between re-renders)
+* *JSX* is JavaScript + HTML
 * How to work with components
 * How to work with firebase 
 * How to work with firebase's database and hosting
