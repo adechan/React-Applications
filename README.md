@@ -1,5 +1,3 @@
-# Amazon Clone
-
 I created numerous applications using React & Firebase. 
 * **React & Firebase**
   * [Basic ToDo List](https://todo-app-react-adc47.web.app/)
