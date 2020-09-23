@@ -10,8 +10,10 @@ import { useDataLayerValue } from "./DataLayer";
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [{ user }, dispatch] = useDataLayerValue();
-  const [token, setToken] = useState(null);
+  const [
+    { user, token, playlists, discover_weekly },
+    dispatch,
+  ] = useDataLayerValue();
 
   useEffect(() => {
     // runs code based on a condition
@@ -21,27 +23,52 @@ function App() {
     const _token = hash.access_token;
 
     if (_token) {
-      setToken(_token);
+      dispatch({
+        type: "SET_TOKEN",
+        token: _token,
+      });
 
       // gives the accessToken to the Spotify API
       spotify.setAccessToken(_token);
 
       spotify.getMe().then((user) => {
-        console.log("User >>> ", user);
+        // console.log("User >>> ", user);
 
         dispatch({
           type: "SET_USER",
           user: user,
         });
       });
-    }
 
-    console.log("Token >>> ", _token);
+      spotify.getUserPlaylists().then((playlists) => {
+        // console.log("Playlists >>> ", playlists);
+
+        dispatch({
+          type: "SET_PLAYLISTS",
+          playlists: playlists,
+        });
+      });
+
+      spotify.getPlaylist("37i9dQZEVXcX2dKLl97NYF").then((response) => {
+        // console.log(response);
+        dispatch({
+          type: "SET_DISCOVER_WEEKLY",
+          discover_weekly: response,
+        });
+      });
+    }
   }, []);
 
-  console.log(user);
+  // console.log("USER >>> ", user);
+  // console.log("TOKEN >>> ", token);
+  // console.log("PLAYLISTS >>> ", playlists);
+  // console.log("DISCOVER WEEKLY >>> ", discover_weekly);
 
-  return <div className="app">{token ? <Player /> : <Login />}</div>;
+  return (
+    <div className="app">
+      {token ? <Player spotify={spotify} /> : <Login />}
+    </div>
+  );
 }
 
 export default App;
