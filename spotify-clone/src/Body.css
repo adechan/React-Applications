@@ -73,3 +73,16 @@
 .body__songs {
   margin: 20px -30px;
 }
+
+.body__green {
+  font-size: 80px !important;
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #1ed15e;
+}
+
+.body__green:hover {
+  transition: 100ms transform ease-in;
+  transform: scale(1.08);
+}
