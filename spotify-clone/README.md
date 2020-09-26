@@ -45,7 +45,10 @@ To use this application, you need to have a spotify account. I use Spotify API t
     * *{}*: what we need to grab from the Data Layer
     * *dispatch*: to update the Data Layer
 
-    
+* ```  <SongRow setBackground={makeSongRowSetter(item.track)} /> ```
+  * *setBackground*: pass this function when creating the component so we can update the background for the every row song
+  * *makeSongRowSetter*: returns a setter function so that the song row can just call *setBackground(true)* and it will update the value to *true* for this *track.id* and all other rows will be changed to not playing (*false*)
+    * *songRowsState*: useState value which keeps track of all the previous rows that had been played + the current playing one
     
 ![spotify](https://user-images.githubusercontent.com/29714385/94337561-050c0b80-fff4-11ea-86aa-bf064d1294bb.PNG)
 
