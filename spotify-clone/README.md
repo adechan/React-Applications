@@ -18,11 +18,27 @@ To use this application, you need to have a spotify account. I use Spotify API t
   * It's a wrapper for the Spotify API that includes *helper functions* for all the Spotify's endpoints, such as fetching metadata (search and look-up of albums, artists, tracks, playlists, new releases, podcasts) and user's information (follow users, artists and playlists, and saved tracks management).
 * Use *React Context API* to avoid props drilling
   * *Data Layer*: this layer can anytime push info to it and pull from it 
-    * We interaact with the *Data Layer* by *dispatching actions* to it
+    * We interact with the *Data Layer* by *dispatching actions* to it
   * *createContext()*: preparing the Data Layer
   * *reducer*:
-    * *actions*: shows how we manipulate what the Data Layer looks like
+    * *action*: shows how we manipulate what the Data Layer looks like
     * *state*: how the Data Layer currently looks 
+    * 
+    ``` 
+    const reducer = (state, action) => {
+         switch (action.type) {
+           case "SET_USER":
+             return {
+               ...state,
+               user: action.user,
+             };
+
+           default:
+             return state;
+         }
+     };
+     ```
+
   * *useContext()*: how to use the Data Layer in our app
     * ``` export const useDataLayerValue = () => useContext(DataLayerContext); ```
   * ``` [{}, dispatch] = useDataLaterValue(); ```
