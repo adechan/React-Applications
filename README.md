@@ -7,3 +7,4 @@ I created numerous applications using React & Firebase.
   * [Amazon clone](https://clone-c15cd.web.app/)
   * [Tinder clone](https://tinder-clone-63256.web.app/)
   * [Tik Tok clone](https://tik-tok-clone-2291e.web.app/)
+  * [Spotify clone](https://spotify-clone-52ee3.web.app/)
