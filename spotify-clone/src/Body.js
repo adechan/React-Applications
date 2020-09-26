@@ -12,14 +12,14 @@ function Body({ spotify }) {
   const [{ discover_weekly, playing }, dispatch] = useDataLayerValue();
   const [songRowsState, setSongRowsState] = useState({});
 
+  // This function returns a setter function so that the song row can just call
+  // setBackground(true) and all the other rows will be changed to not playing
   function makeSongRowSetter(track) {
+    // Ex: track.id 0 will have a setValue function that changes track.id 0's background state
     const setValue = (value) => {
-      // console.log("setValue with " + value + " called for track" + track.id);
-      // console.trace();
-      // throw "ayy";
       console.log("songRowsState: ", songRowsState);
-      let newRowsState = {};
       console.log("track id: ", track.id);
+      let newRowsState = {};
 
       // Set all other song row states to false
       for (const key in songRowsState) {
@@ -29,6 +29,8 @@ function Body({ spotify }) {
       // Set the current song row state to true
       newRowsState[track.id] = value;
       console.log("newRowsState: ", newRowsState);
+
+      // Tells react to update the songRowsState variable to this new one on the next "loop" of react's event loop
       setSongRowsState(newRowsState);
     };
 
@@ -62,7 +64,13 @@ function Body({ spotify }) {
           <FavoriteIcon fontSize="large" />
           <MoreHorizIcon />
         </div>
-        {/* list of songs */}
+        {
+          /* list of songs */
+          // Try to think of what order the following code runs in
+          // It sees the <SongRow> tag and all the parameters so it gets ready
+          // to construct a SongRow "object", but sees we have to call makeSongRowSetter
+          // first, so we go there
+        }
         {discover_weekly?.tracks.items.map((item) => (
           <SongRow
             key={item.track.id}

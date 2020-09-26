@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDataLayerValue } from "./DataLayer";
 import "./SongRow.css";
 
 function SongRow({ track, setBackground, songRowsState }) {
   const [{}, dispatch] = useDataLayerValue();
-  // songRowsState[track.id]
+
   const handlePlayingSong = (track) => {
     console.log("TRACK >>> ", track);
     dispatch({
