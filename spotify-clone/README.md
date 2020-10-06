@@ -1,68 +1,58 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Spotify Clone
 
-## Available Scripts
+I created this Spotify clone application following Clever Programmer's Tutorial using React and Firebase.
+</br>
+To use this application, you need to have a spotify account. I use Spotify API to authentificate into my Spotify account, and then I'm doing requests to the Spotify API to get information about my playlists, and the songs found in discovery weekly. 
 
-In the project directory, you can run:
+**New things I learned doing this:**
+* How to do requests to *Spotify API*
+  * To access private data through this Web API (profiles, playlists), the application must get the user's permission to access the data, so the *authorization* is made via the Spotify Accounts service
+    * I authorize the app through *User Authorization* (grant the app permission to access/ modify the user's own data)
+    * *Scopes*: enable your app to access specific API endpoints on behalf of a user; 
+    * Usage of *scopes*: it provides to Spotify users using third party apps, the confidence that only info they choose to share will be shared and nothing more
+    * Have your application request authorization; the user logs in and authorizes access: so we have to send a *GET request* to /authorize endpoint (*https://accounts.spotify.com/authorize*)
+    * Example of request: *GET https://accounts.spotify.com/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&scope=user-read-private%20user-read-email&state=34fFs29kd09*
+    * More information about authorization can be found [here](https://developer.spotify.com/documentation/general/guides/authorization-guide/) 
+* `` means *string interpolation*: combines JavaScript with string
+* Use *spotify-web-api-js*: easy way to interact with Spotify API
+  * It's a wrapper for the Spotify API that includes *helper functions* for all the Spotify's endpoints, such as fetching metadata (search and look-up of albums, artists, tracks, playlists, new releases, podcasts) and user's information (follow users, artists and playlists, and saved tracks management).
+* Use *React Context API* to avoid props drilling
+  * *Data Layer*: this layer can anytime push info to it and pull from it 
+    * We interact with the *Data Layer* by *dispatching actions* to it
+  * *createContext()*: preparing the Data Layer
+  * *reducer*:
+    * *action*: shows how we manipulate what the Data Layer looks like
+    * *state*: how the Data Layer currently looks 
+    * 
+    ``` 
+    const reducer = (state, action) => {
+         switch (action.type) {
+           case "SET_USER":
+             return {
+               ...state,
+               user: action.user,
+             };
 
-### `npm start`
+           default:
+             return state;
+         }
+     };
+     ```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  * *useContext()*: how to use the Data Layer in our app
+    * ``` export const useDataLayerValue = () => useContext(DataLayerContext); ```
+  * ``` [{}, dispatch] = useDataLaterValue(); ```
+    * *{}*: what we need to grab from the Data Layer
+    * *dispatch*: to update the Data Layer
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+* ```  <SongRow setBackground={makeSongRowSetter(item.track)} /> ```
+  * *setBackground*: pass this function when creating the component so we can update the background for the every row song
+  * *makeSongRowSetter*: returns a setter function so that the song row can just call *setBackground(true)* and it will update the value to *true* for this *track.id* and all other rows will be changed to not playing (*false*)
+    * *songRowsState*: useState value which keeps track of all the previous rows that had been played + the current playing one
+    
+![spotify](https://user-images.githubusercontent.com/29714385/94337561-050c0b80-fff4-11ea-86aa-bf064d1294bb.PNG)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## If you want to try the application:
+https://spotify-clone-52ee3.web.app/
