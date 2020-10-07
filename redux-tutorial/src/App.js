@@ -14,6 +14,7 @@ function App() {
   const handleClick = () => {
     // input = payload
     dispatch(setName(input));
+    setInput("");
   };
 
   return (
