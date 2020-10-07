@@ -25,7 +25,9 @@ function App() {
         onChange={(event) => setInput(event.target.value)}
         type="text"
       />
-      <button onClick={handleClick}>Update name in the Redux store</button>
+      <button disabled={!input} onClick={handleClick}>
+        Update name in the Redux store
+      </button>
       <h1>{name}</h1>
 
       <header className="App-header">
