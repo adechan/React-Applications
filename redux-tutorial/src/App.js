@@ -25,7 +25,7 @@ function App() {
         onChange={(event) => setInput(event.target.value)}
         type="text"
       />
-      <button disabled={!input} onClick={handleClick}>
+      <button disabled={!input.trim()} onClick={handleClick}>
         Update name in the Redux store
       </button>
       <h1>{name}</h1>
