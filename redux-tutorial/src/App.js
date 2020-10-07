@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { selectName, setName } from "./features/userSlice";
 
 function App() {
+  const [input, setInput] = useState("");
+
+  const name = useSelector(selectName);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    // input = payload
+    dispatch(setName(input));
+  };
+
   return (
     <div className="App">
       <h2>This is my name</h2>
-      <input type="text" />
+      <input
+        value={input}
+        onChange={(event) => setInput(event.target.value)}
+        type="text"
+      />
+      <button onClick={handleClick}>Update name in the Redux store</button>
+      <h1>{name}</h1>
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
