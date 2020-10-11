@@ -5,7 +5,7 @@ import "./Message.css";
 function Message() {
   return (
     <div className="message">
-      <Avatar />
+      <Avatar src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" />
       <div className="message__info">
         <h4>
           adechan
