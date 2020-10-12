@@ -37,6 +37,18 @@ The application has Google authentication, which allows you to log into your acc
   * also export the ***selects*** which contain the state we want to modify
     * state in *userSlice*: ```selectUser```
     * state in *appSlice*: ```selectChannelId```, ```selectChannelName```
+  * to be able to grab the state in our app: 
+    *  use *useSelector* hook: ```user = useSelector(_the_selector_that_contains_the_state_you_want_)```
+  * to be able to modify the state in our app: 
+    * *dispatch actions*
+    ``` 
+    const dispatch = useDispatch();
+    ...
+    dispatch(
+        _action_type_({
+          _payload_
+        })
+    ```
 
 ![discord](https://user-images.githubusercontent.com/29714385/95742392-a0f67200-0c98-11eb-9a62-023fe695054c.PNG)
 
