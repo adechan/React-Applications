@@ -34,7 +34,7 @@
   outline-width: 0;
   color: white;
   font-size: large;
-  width: 100%;
+  width: 95%;
 }
 
 .chat__inputButton {
@@ -47,4 +47,14 @@
 
 .chat__messages {
   flex: 1;
+  overflow: scroll;
+}
+
+.chat__messages::-webkit-scrollbar {
+  display: none;
+}
+
+.chat__messages {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

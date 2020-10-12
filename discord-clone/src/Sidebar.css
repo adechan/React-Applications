@@ -20,6 +20,18 @@
   flex: 1;
 }
 
+.sidebar__channelsList {
+  overflow: scroll;
+}
+.sidebar__channelsList::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar__channelsList {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .sidebar__addChannel {
   cursor: pointer;
 }
@@ -83,4 +95,8 @@
 
 .sidebar__profileInfo > h3 {
   color: white;
+}
+
+.sidebar__profile > .avatar {
+  cursor: pointer;
 }
