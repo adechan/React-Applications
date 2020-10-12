@@ -8,13 +8,13 @@ The application has Google authentication, which allows you to log into your acc
 **New things I learned doing this:**
 * *named* VS *default* exports: 
   * *named* exports: 
-    * *export { name }*
-    * *import { name } from ...*
+    * ```export { name }```
+    * ```import { name } from ...```
     * you can have multiple named exports per file
     * the name of imported module has to be the same as the name of exported module
   * *default* exports: 
-    * *export default name*
-    * *import any_name from ...* 
+    * ```export default name```
+    * ```import any_name from ...```
     * you can have only one default export per file
     * the name of imported module doesn't have to be the same as the name of exported module
 * How to get rid of border when you click on the input:
