@@ -23,18 +23,18 @@ The application has Google authentication, which allows you to log into your acc
   * you need to have a *Google auth provider*: ``` provider = new firebase.auth.GoogleAuthProvider(); ```
   * in the *login* function: opens a popout box with multiple Google accounts ``` auth.signInWithPopup(provider); ```
 * Use *npx-create-react-app _name --template redux* to create the app with *Redux* configuration
-  * *Redux*: similar with a Data Layer which has many *SLICES*
+  * *Redux*: similar with a Data Layer which has many ***slices***
   * in my app I used: 
     * *userSlice*: which has all the user information
     * *appSlice*: which has generic information about the app (ex: which channel you are in)
-  * *STORE*: contains all the slices (it's like an *onion*)
+  * ***store***: contains all the slices (it's like an *onion*)
   * *reducer* functions: listens to actions 
     * reducers in *userSlice*: ```login```, ```logout```
     * reducers in *appSlice*: ```setChannelInfo```
-  * after settin up the reducers, we have to export them as *ACTIONS*
+  * after settin up the reducers, we have to export them as ***actions***
     * actions in *userSlice*: ```login```, ```logout```
     * actions in *appSlice*: ```setChannelInfo```
-  * also export the *SELECTS* which contain the state we want to modify
+  * also export the ***selects*** which contain the state we want to modify
     * state in *userSlice*: ```selectUser```
     * state in *appSlice*: ```selectChannelId```, ```selectChannelName```
 
