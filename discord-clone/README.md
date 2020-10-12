@@ -17,6 +17,11 @@ The application has Google authentication, which allows you to log into your acc
     * *import any_name from ...* 
     * you can have only one default export per file
     * the name of imported module doesn't have to be the same as the name of exported module
+* How to get rid of border when you click on the input:
+  ``` input { outline-width: 0; } ```
+* How to create *Google* authentication: 
+  * you need to have a *Google auth provider*: ``` provider = new firebase.auth.GoogleAuthProvider(); ```
+  * in the *login* function: opens a popout box with multiple Google accounts ``` auth.signInWithPopup(provider); ```
 * Use *npx-create-react-app _name --template redux* to create the app with Redux configuration
 
 
